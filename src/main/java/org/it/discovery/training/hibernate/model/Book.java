@@ -6,9 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
 
 /**
  * Book in a library
@@ -18,10 +17,7 @@ import javax.persistence.Transient;
 
 @Entity 
 @Table(name = "BOOKS")
-public class Book {
-	private int id;
-	
-	private String name;
+public class Book extends BaseEntity {
 	
 	private Person author;
 	
@@ -36,24 +32,6 @@ public class Book {
 	 * Total number of pages
 	 */
 	private int pages;
-
-	@Id
-	@Column(insertable=false)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Person getAuthor() {

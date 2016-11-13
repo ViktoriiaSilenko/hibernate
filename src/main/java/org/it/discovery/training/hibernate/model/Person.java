@@ -18,33 +18,12 @@ import javax.persistence.Table;
 
 @Entity 
 @Table(name = "PERSON")
-public class Person {
-	private int id;
-	
-	private String name;
+public class Person extends BaseEntity {
 	
 	/**
 	 * Books that person has written
 	 */
 	private List<Book> books;
-
-	@Id
-	@Column(insertable=false)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	@OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY, orphanRemoval = true, mappedBy="author")
 	public List<Book> getBooks() {

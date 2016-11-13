@@ -1,5 +1,6 @@
 package org.it.discovery.training.hibernate.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -9,7 +10,8 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
+
+import org.hibernate.annotations.Formula;
 
 /**
  * Book publisher
@@ -18,31 +20,10 @@ import javax.persistence.Transient;
  */
 @Entity 
 @Table(name = "PUBLISHER")
-public class Publisher {
-	private int id;
-	
-	private String name;
+public class Publisher extends BaseEntity {
 	
 	private List<Book> books;
-
-	@Id
-	@Column(insertable=false)
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	@Column(columnDefinition="varchar(100)", nullable = false, insertable = true, updatable = true)
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
+	private int bookCount;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "publisher") 
 	public List<Book> getBooks() {
@@ -52,5 +33,25 @@ public class Publisher {
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
+
+	@Formula("(select count(book.id) FROM BOOKS book where book.publisher_id = id)")
+	public int getBookCount() {
+		return bookCount;
+	}
+
+	public void setBookCount(int bookCount) {
+		this.bookCount = bookCount;
+	}
+	
+	
+	public void addBook(Book book) {
+		if(books == null) {
+			books = new ArrayList<>();
+		}
+		books.add(book);
+		book.setPublisher(this);
+	}
+	
+	
 
 }
