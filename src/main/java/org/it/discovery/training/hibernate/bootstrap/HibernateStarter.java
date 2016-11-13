@@ -8,8 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.it.discovery.training.hibernate.model.Book;
 import org.it.discovery.training.hibernate.model.Publisher;
+import org.it.discovery.training.hibernate.repository.PersonRepository;
 import org.it.discovery.training.hibernate.repository.PublisherRepository;
 import org.it.discovery.training.hibernate.repository.impl.HibernatePublisherRepository;
+import org.it.discovery.training.hibernate.repository.impl.PersonRepositoryImpl;
 import org.it.discovery.training.hibernate.util.HibernateUtil;
 
 public class HibernateStarter {
@@ -31,6 +33,12 @@ public class HibernateStarter {
 			publ = repo.findById(publId);
 			
 			System.out.println("publ.getBookCount() = " + publ.getBookCount());
+			
+			
+			PersonRepository repo2 = new PersonRepositoryImpl();
+			System.out.println("repo2.findPersonWithoutBooks() = " + repo2.findPersonWithoutBooks().size());
+			
+		
 			
 			/*System.out.println(publId);
 			repo.delete(publId);
