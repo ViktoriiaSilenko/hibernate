@@ -7,6 +7,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.it.discovery.training.hibernate.model.Book;
+import org.it.discovery.training.hibernate.model.Person;
 import org.it.discovery.training.hibernate.model.Publisher;
 import org.it.discovery.training.hibernate.repository.PersonRepository;
 import org.it.discovery.training.hibernate.repository.PublisherRepository;
@@ -38,6 +39,15 @@ public class HibernateStarter {
 			PersonRepository repo2 = new PersonRepositoryImpl();
 			System.out.println("repo2.findPersonWithoutBooks() = " + repo2.findPersonWithoutBooks().size());
 			
+			/*Person p = new Person();
+			p.setName("vika");
+			List<Book> books = new ArrayList<>();
+			books.add(book);
+			p.setBooks(books);*/
+			//repo2.s
+			
+			System.out.println("repo2.findPersonWithBooks(0) = " + repo2.findPersonWithBooks(0).size());
+			
 		
 			
 			/*System.out.println(publId);
@@ -54,6 +64,7 @@ public class HibernateStarter {
 		} catch (Exception ex) {
 			if (session != null) {
 				session.getTransaction().rollback();
+				System.out.println(ex.getStackTrace());
 			}
 		}
 
