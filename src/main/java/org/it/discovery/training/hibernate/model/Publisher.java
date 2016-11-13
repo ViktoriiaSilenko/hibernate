@@ -2,9 +2,12 @@ package org.it.discovery.training.hibernate.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -32,7 +35,7 @@ public class Publisher {
 		this.id = id;
 	}
 
-	@Column(columnDefinition="varchar(100)", nullable=false, insertable=true, updatable=true)
+	@Column(columnDefinition="varchar(100)", nullable = false, insertable = true, updatable = true)
 	public String getName() {
 		return name;
 	}
@@ -41,7 +44,7 @@ public class Publisher {
 		this.name = name;
 	}
 
-	@Transient 
+	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "publisher") 
 	public List<Book> getBooks() {
 		return books;
 	}

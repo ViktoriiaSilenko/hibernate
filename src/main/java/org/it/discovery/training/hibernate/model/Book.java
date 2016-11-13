@@ -1,8 +1,12 @@
 package org.it.discovery.training.hibernate.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -51,7 +55,7 @@ public class Book {
 		this.name = name;
 	}
 
-	@Transient
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Person getAuthor() {
 		return author;
 	}
@@ -60,7 +64,7 @@ public class Book {
 		this.author = author;
 	}
 
-	@Transient
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	public Publisher getPublisher() {
 		return publisher;
 	}
